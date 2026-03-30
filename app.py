@@ -10,7 +10,7 @@ import re
 
 app = Flask(__name__)
 
-GEMINI_API_KEY = "AIzaSyCKIHejk4D8AH1wqRFmJP0iiO5a9VXTySU"
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
