@@ -1,4 +1,5 @@
 flask
 PyPDF2
 python-docx
-google-generativeai
+google-genai
+gunicorn

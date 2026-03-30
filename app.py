@@ -10,8 +10,7 @@ import re
 
 app = Flask(__name__)
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY", "")
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 results_cache = {}
@@ -384,4 +383,4 @@ if __name__ == "__main__":
     print("=" * 50)
 import os
 port = int(os.environ.get("PORT", 5000))
-app.run(host="0.0.0.0", port=port)
+app.run(host="0.0.0.0", port=port, debug=False)
