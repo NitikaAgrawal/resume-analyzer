@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-import google.generativeai as genai
+from google import genai
 from google.genai import types
 import PyPDF2
 import docx
