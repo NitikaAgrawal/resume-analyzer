@@ -14,9 +14,9 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-tag">✦ Powered by Gemini AI + Custom ML Engine</div>
+  <div class="hero-tag">✦ Powered by Gemini AI + LaTeX PDF Engine</div>
   <h1>Your Resume,<br><span>Brutally Honest.</span></h1>
-  <p>Upload your resume and get a deep AI analysis — ATS score, skill gaps, role matches, JD comparison, AI cover letter, and an improved resume you can download as PDF or DOCX.</p>
+  <p>Upload your resume for AI analysis — ATS score, skill gaps, role matches, JD comparison. Download improved resume and cover letter as professional LaTeX-compiled PDFs.</p>
   <div class="tabs">
     <div class="tab active" onclick="switchTab('analyze',this)">Analyze Resume</div>
     <div class="tab" onclick="switchTab('cover',this)">Cover Letter</div>
@@ -47,15 +47,13 @@
         <input type="text" id="jobRole" placeholder="e.g. Frontend Developer..."/>
       </div>
       <div class="field">
-        <label>Job Description (short)</label>
+        <label>Job Description (optional)</label>
         <input type="text" id="jdShort" placeholder="Paste JD for match %..."/>
       </div>
     </div>
-    <div class="field-full">
-      <div class="field">
-        <label>Full Job Description (optional)</label>
-        <textarea id="jdText" placeholder="Paste the complete job description here..."></textarea>
-      </div>
+    <div class="field-full field">
+      <label>Full Job Description (optional)</label>
+      <textarea id="jdText" placeholder="Paste the complete job description here..."></textarea>
     </div>
 
     <button class="analyze-btn" id="analyzeBtn" onclick="analyzeResume()">
@@ -67,37 +65,65 @@
   <!-- ── COVER LETTER TAB ── -->
   <div class="upload-panel" id="tab-cover">
     <div class="cover-panel">
-      <div class="section-label">Generate AI Cover Letter</div>
+      <div class="section-label">Generate AI Cover Letter — Professional PDF</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.6;">
+        Analyze your resume first and your details will auto-fill below. Cover letter uses the Sid Lacy LaTeX template with shaded header banner.
+      </p>
+
+      <!-- Personal Info -->
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;">Your Details</div>
       <div class="cover-fields">
-        <div class="field">
-          <label>Job Role *</label>
-          <input type="text" id="clRole" placeholder="e.g. Software Engineer"/>
-        </div>
-        <div class="field">
-          <label>Company Name *</label>
-          <input type="text" id="clCompany" placeholder="e.g. Google, Infosys..."/>
-        </div>
+        <div class="field"><label>Full Name *</label>
+          <input type="text" id="clName" placeholder="e.g. Nitika Agrawal"/></div>
+        <div class="field"><label>Current Title</label>
+          <input type="text" id="clTitle" placeholder="e.g. Senior Software Engineer"/></div>
       </div>
-      <div class="field" style="margin-bottom:16px">
-        <label>Your Background (optional)</label>
-        <textarea id="clBackground" placeholder="e.g. 2 years in React, built 3 projects..."></textarea>
+      <div class="cover-fields" style="margin-top:12px">
+        <div class="field"><label>Email</label>
+          <input type="text" id="clEmail" placeholder="your@email.com"/></div>
+        <div class="field"><label>Phone</label>
+          <input type="text" id="clPhone" placeholder="+91-XXXXXXXXXX"/></div>
+      </div>
+      <div class="cover-fields" style="margin-top:12px">
+        <div class="field"><label>LinkedIn URL</label>
+          <input type="text" id="clLinkedin" placeholder="https://linkedin.com/in/yourhandle"/></div>
+        <div class="field"><label>Your Location</label>
+          <input type="text" id="clLocation" placeholder="e.g. Gurgaon, India"/></div>
       </div>
 
-      <!-- Format selector -->
-      <div class="format-selector" style="margin-bottom:18px">
-        <div class="section-label" style="margin-bottom:8px">Download Format</div>
-        <div class="format-pills">
-          <div class="fmt-pill active" id="cl-fmt-pdf" onclick="selectFormat('cl','pdf',this)">
-            <span class="fmt-icon">📄</span> PDF
-          </div>
-          <div class="fmt-pill" id="cl-fmt-docx" onclick="selectFormat('cl','docx',this)">
-            <span class="fmt-icon">📝</span> Word (DOCX)
-          </div>
-        </div>
+      <div style="height:1px;background:var(--border);margin:20px 0"></div>
+
+      <!-- Job Details -->
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;">Job Details</div>
+      <div class="cover-fields">
+        <div class="field"><label>Job Role *</label>
+          <input type="text" id="clRole" placeholder="e.g. Software Engineer"/></div>
+        <div class="field"><label>Company Name *</label>
+          <input type="text" id="clCompany" placeholder="e.g. Google, Infosys..."/></div>
+      </div>
+      <div class="cover-fields" style="margin-top:12px">
+        <div class="field"><label>Company Street Address</label>
+          <input type="text" id="clStreet" placeholder="e.g. 1600 Amphitheatre Pkwy"/></div>
+        <div class="field"><label>City</label>
+          <input type="text" id="clCity" placeholder="e.g. Mountain View"/></div>
+      </div>
+      <div class="cover-fields" style="margin-top:12px">
+        <div class="field"><label>State / Region</label>
+          <input type="text" id="clState" placeholder="e.g. CA"/></div>
+        <div class="field"><label>ZIP / PIN Code</label>
+          <input type="text" id="clZip" placeholder="e.g. 94043"/></div>
+      </div>
+
+      <div style="height:1px;background:var(--border);margin:20px 0"></div>
+
+      <!-- Background -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Your Key Background (optional — helps AI personalise)</label>
+        <textarea id="clBackground" placeholder="e.g. 4.8 years in Angular, spearheaded CI/CD saving 8h/release, built AI Resume Analyzer with Gemini API..."></textarea>
       </div>
 
       <button class="gen-btn" id="clBtn" onclick="generateCoverLetter()">
-        Generate & Download Cover Letter ✦
+        Generate & Download Cover Letter PDF ✦
       </button>
       <div class="error-box" id="clError"></div>
     </div>
@@ -131,30 +157,15 @@
 
     <div class="summary-card" id="summaryCard"></div>
 
-    <!-- ── DOWNLOAD IMPROVED RESUME ── -->
+    <!-- Download Improved Resume -->
     <div class="resume-download-panel" id="downloadPanel" style="display:none">
-      <div class="rdl-title">⬇ Download Your Improved Resume</div>
+      <div class="rdl-title">⬇ Download Improved Resume — LaTeX PDF</div>
       <div class="rdl-sub">
-        AI rewrites your resume applying all improvements — stronger action verbs, quantified metrics, ATS-friendly formatting, and missing skills added. Choose your preferred format below.
+        AI applies all improvements to your resume — same template, exact same companies, projects, education, and contact details. Only bullet points and summary are strengthened with action verbs and metrics.
       </div>
-
       <div class="rdl-improvements" id="rdlImprovements"></div>
-
-      <!-- Format selector for resume -->
-      <div class="format-selector" style="margin-bottom:20px">
-        <div class="section-label" style="margin-bottom:8px">Choose Download Format</div>
-        <div class="format-pills">
-          <div class="fmt-pill active" id="res-fmt-pdf" onclick="selectFormat('res','pdf',this)">
-            <span class="fmt-icon">📄</span> PDF
-          </div>
-          <div class="fmt-pill" id="res-fmt-docx" onclick="selectFormat('res','docx',this)">
-            <span class="fmt-icon">📝</span> Word (DOCX)
-          </div>
-        </div>
-      </div>
-
       <button class="download-btn" id="downloadBtn" onclick="downloadImprovedResume()">
-        <span id="dlBtnText">Generate & Download Improved Resume</span>
+        <span id="dlBtnText">Generate & Download Improved Resume PDF</span>
       </button>
     </div>
 
@@ -238,45 +249,11 @@
   </div>
 </div>
 
-<!-- Format pill styles (added inline to keep CSS file clean for core styles) -->
-<style>
-.format-pills { display:flex; gap:10px; flex-wrap:wrap; }
-.fmt-pill {
-  display:flex; align-items:center; gap:6px;
-  padding:9px 20px; border-radius:10px; cursor:pointer;
-  font-size:13px; font-weight:500;
-  background:var(--surface2); border:1px solid var(--border2);
-  color:var(--muted); transition:all 0.2s; user-select:none;
-}
-.fmt-pill:hover { border-color:var(--accent); color:var(--accent2); }
-.fmt-pill.active {
-  background:rgba(124,109,240,0.12);
-  border:1px solid rgba(124,109,240,0.4);
-  color:var(--accent2);
-}
-.fmt-icon { font-size:16px; }
-</style>
-
 <script>
 let selectedFile     = null;
 let lastAnalysisData = null;
 let lastResumeText   = '';
-let resumeFormat     = 'pdf';
-let coverFormat      = 'pdf';
 
-// ── FORMAT SELECTOR ──
-function selectFormat(type, fmt, el) {
-  if (type === 'res') {
-    resumeFormat = fmt;
-    document.querySelectorAll('[id^="res-fmt-"]').forEach(p => p.classList.remove('active'));
-  } else {
-    coverFormat = fmt;
-    document.querySelectorAll('[id^="cl-fmt-"]').forEach(p => p.classList.remove('active'));
-  }
-  el.classList.add('active');
-}
-
-// ── TABS ──
 function switchTab(tab, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.upload-panel').forEach(p => p.classList.remove('active'));
@@ -284,7 +261,6 @@ function switchTab(tab, el) {
   document.getElementById('tab-'+tab).classList.add('active');
 }
 
-// ── FILE HANDLING ──
 const dz = document.getElementById('dropzone');
 dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('dragover'); });
 dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
@@ -294,7 +270,7 @@ dz.addEventListener('drop', e => {
 });
 function handleFile(file) {
   if (!file) return;
-  if (!file.name.match(/\.(pdf|docx|txt)$/i)) { showError('Only PDF, DOCX, or TXT files are supported.'); return; }
+  if (!file.name.match(/\.(pdf|docx|txt)$/i)) { showError('Only PDF, DOCX, or TXT supported.'); return; }
   selectedFile = file;
   document.getElementById('fileName').textContent = file.name;
   document.getElementById('fileSize').textContent  = (file.size/1024).toFixed(1)+' KB';
@@ -303,16 +279,14 @@ function handleFile(file) {
   document.getElementById('results').style.display = 'none';
 }
 
-// ── HELPERS ──
 function scoreColor(s) { return s>=75?'c-green':s>=50?'c-amber':'c-red'; }
 function barColor(s)   { return s>=75?'bg-green':s>=50?'bg-amber':'bg-red'; }
-function showError(msg){ const e=document.getElementById('errorBox'); e.textContent=msg; e.classList.add('visible'); }
+function showError(msg){ const el=document.getElementById('errorBox'); el.textContent=msg; el.classList.add('visible'); }
 function hideError()   { document.getElementById('errorBox').classList.remove('visible'); }
 function makeList(id,items){ document.getElementById(id).innerHTML=(items||[]).map(i=>`<li>${i}</li>`).join(''); }
 
-// ── ANALYZE ──
 async function analyzeResume() {
-  if (!selectedFile) { showError('Please upload your resume file first.'); return; }
+  if (!selectedFile) { showError('Please upload your resume first.'); return; }
   const btn = document.getElementById('analyzeBtn');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>Analyzing...';
@@ -330,15 +304,31 @@ async function analyzeResume() {
     const d   = await res.json();
     if (!res.ok||d.error) { showError(d.error||'Something went wrong.'); return; }
     lastAnalysisData = d;
-    lastResumeText   = d.resume_text_preview||'';
+    lastResumeText   = d.resume_text_full||'';
     renderResults(d);
-  } catch(e) { showError('Could not connect to server.'); }
+    autoFillCoverLetter(d);
+  } catch(ex) { showError('Could not connect to server.'); }
   finally { btn.disabled=false; btn.innerHTML='Analyze My Resume →'; }
 }
 
-// ── RENDER ──
+function autoFillCoverLetter(d) {
+  // Name from first line of resume
+  const firstLine = lastResumeText.trim().split('\n')[0]?.trim();
+  if (firstLine && firstLine.length < 60)
+    document.getElementById('clName').value = firstLine;
+
+  // Contact details
+  const cv = d.contact_values || {};
+  if (cv.email)    document.getElementById('clEmail').value    = cv.email;
+  if (cv.phone)    document.getElementById('clPhone').value    = cv.phone;
+  if (cv.linkedin) document.getElementById('clLinkedin').value = cv.linkedin;
+
+  // Job role from analysis tab
+  const role = document.getElementById('jobRole').value.trim();
+  if (role) document.getElementById('clRole').value = role;
+}
+
 function renderResults(d) {
-  // Scores
   ['score1','score2','score3'].forEach((id,i) => {
     const val=[d.overall_score,d.ats_score,d.impact_score][i];
     const el=document.getElementById(id);
@@ -347,31 +337,24 @@ function renderResults(d) {
     bar.style.width='0%'; bar.className='score-bar-fill '+barColor(val);
     setTimeout(()=>bar.style.width=val+'%',100);
   });
-
-  document.getElementById('summaryCard').textContent = d.summary;
-
+  document.getElementById('summaryCard').textContent=d.summary;
   if (d.experience_level) {
-    document.getElementById('expLevel').textContent = d.experience_level+' Level';
-    document.getElementById('expBadge').style.display = 'inline-flex';
+    document.getElementById('expLevel').textContent=d.experience_level+' Level';
+    document.getElementById('expBadge').style.display='inline-flex';
   }
-
-  // Skills
   document.getElementById('presentSkills').innerHTML=(d.present_skills||[]).map(s=>`<span class="chip chip-green">${s}</span>`).join('');
   document.getElementById('missingSkills').innerHTML=(d.missing_skills||[]).map(s=>`<span class="chip chip-red">${s}</span>`).join('');
 
-  // Contact
   document.getElementById('contactRow').innerHTML='';
   [{k:'email',l:'Email'},{k:'phone',l:'Phone'},{k:'linkedin',l:'LinkedIn'},{k:'github',l:'GitHub'}].forEach(c=>{
     document.getElementById('contactRow').innerHTML+=`<span class="contact-pill ${d.contact_info?.[c.k]?'cp-found':'cp-missing'}">${d.contact_info?.[c.k]?'✓':'✗'} ${c.l}</span>`;
   });
 
-  // Achievements
   const achs=d.quantified_achievements||[];
   document.getElementById('achRow').innerHTML=achs.length
     ?achs.map(a=>`<span class="ach-pill">${a}</span>`).join('')
     :'<span style="font-size:13px;color:var(--red)">No metrics found — add % or $ results</span>';
 
-  // Role Matches
   document.getElementById('roleMatches').innerHTML=(d.role_matches||[]).map(r=>`
     <div class="role-row">
       <span class="role-name">${r.role}</span>
@@ -380,7 +363,6 @@ function renderResults(d) {
     </div>`).join('');
   setTimeout(()=>document.querySelectorAll('.role-bar-fill').forEach(b=>b.style.width=b.dataset.w+'%'),100);
 
-  // JD Match
   if (d.jd_match) {
     document.getElementById('jdSection').style.display='block';
     const pct=d.jd_match.match_percentage;
@@ -389,13 +371,12 @@ function renderResults(d) {
     document.getElementById('matchDesc').innerHTML=pct>=70
       ?`<strong>Strong match!</strong> ${d.jd_match.matched_keywords.length} key skills found. Add missing ones to reach 100%.`
       :pct>=40
-      ?`<strong>Moderate match.</strong> ${d.jd_match.matched_keywords.length} skills match, ${d.jd_match.missing_keywords.length} are missing. Tailor your resume.`
-      :`<strong>Low match.</strong> Only ${d.jd_match.matched_keywords.length} keywords align. Significantly tailor your resume.`;
+      ?`<strong>Moderate match.</strong> ${d.jd_match.missing_keywords.length} skills missing — tailor your resume.`
+      :`<strong>Low match.</strong> Significantly tailor your resume for this role.`;
     document.getElementById('matchedKw').innerHTML=(d.jd_match.matched_keywords||[]).map(k=>`<span class="chip chip-green">${k}</span>`).join('');
     document.getElementById('missingKw').innerHTML=(d.jd_match.missing_keywords||[]).map(k=>`<span class="chip chip-red">${k}</span>`).join('');
   }
 
-  // Breakdown
   document.getElementById('preScoreVal').textContent=d.pre_score;
   const bdLabels={technical_skills:'Technical Skills',soft_skills:'Soft Skills',action_verbs:'Action Verbs',quantified_achievements:'Achievements',contact_info:'Contact Info',resume_length:'Resume Length'};
   document.getElementById('breakdownRows').innerHTML=Object.entries(d.score_breakdown||{}).map(([k,v])=>{
@@ -414,7 +395,6 @@ function renderResults(d) {
   makeList('weaknessList',d.weaknesses);
   makeList('improvList',d.improvements);
 
-  // Download Panel
   if (d.improvements?.length) {
     document.getElementById('rdlImprovements').innerHTML=(d.improvements||[]).map(imp=>
       `<div class="rdl-imp-item"><span class="imp-icon">⚡</span><span>${imp}</span></div>`).join('');
@@ -426,95 +406,83 @@ function renderResults(d) {
   setTimeout(()=>document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'}),100);
 }
 
-// ── DOWNLOAD IMPROVED RESUME ──
 async function downloadImprovedResume() {
   if (!lastAnalysisData) return;
   const btn=document.getElementById('downloadBtn');
   const btnText=document.getElementById('dlBtnText');
   btn.disabled=true;
-  btnText.innerHTML='<span class="spinner"></span>Generating '+resumeFormat.toUpperCase()+'...';
-
+  btnText.innerHTML='<span class="spinner"></span>AI improving + compiling PDF...';
   try {
     const res = await fetch('/generate-resume',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        resume_preview: lastResumeText,
-        improvements:   lastAnalysisData.improvements||[],
-        missing_skills: lastAnalysisData.missing_skills||[],
-        job_role:       document.getElementById('jobRole').value.trim(),
-        experience_level: lastAnalysisData.experience_level||'',
-        format: resumeFormat
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        resume_text:      lastResumeText,
+        improvements:     lastAnalysisData.improvements||[],
+        missing_skills:   lastAnalysisData.missing_skills||[],
+        job_role:         document.getElementById('jobRole').value.trim(),
+        experience_level: lastAnalysisData.experience_level||''
       })
     });
-
-    if (!res.ok) {
-      const err=await res.json();
-      alert('Error: '+(err.error||'Could not generate resume'));
-      return;
-    }
-
-    // Trigger download
-    const blob   = await res.blob();
-    const url    = URL.createObjectURL(blob);
-    const a      = document.createElement('a');
-    a.href       = url;
-    a.download   = resumeFormat==='docx'?'improved_resume.docx':'improved_resume.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-
-    btnText.textContent='✓ Downloaded!';
-    setTimeout(()=>{ btnText.textContent='Generate & Download Improved Resume'; btn.disabled=false; },3000);
-  } catch(e) {
-    alert('Could not generate resume. Please try again.');
-    btnText.textContent='Generate & Download Improved Resume';
-    btn.disabled=false;
-  }
-}
-
-// ── COVER LETTER ──
-async function generateCoverLetter() {
-  const role    = document.getElementById('clRole').value.trim();
-  const company = document.getElementById('clCompany').value.trim();
-  const bg      = document.getElementById('clBackground').value.trim()||lastResumeText;
-  const errEl   = document.getElementById('clError');
-  errEl.classList.remove('visible');
-
-  if (!role||!company) { errEl.textContent='Job role and company name are required.'; errEl.classList.add('visible'); return; }
-
-  const btn=document.getElementById('clBtn');
-  btn.textContent='Generating...'; btn.disabled=true;
-
-  try {
-    const res=await fetch('/generate-cover-letter',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({job_role:role,company,resume_summary:bg,format:coverFormat})
-    });
-
-    if (!res.ok) {
-      const err=await res.json();
-      errEl.textContent=err.error||'Something went wrong.'; errEl.classList.add('visible');
-      return;
-    }
-
+    if (!res.ok) { const err=await res.json(); alert('Error: '+(err.error||'Failed')); return; }
     const blob=await res.blob();
     const url=URL.createObjectURL(blob);
     const a=document.createElement('a');
-    a.href=url;
-    a.download=coverFormat==='docx'?'cover_letter.docx':'cover_letter.pdf';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    a.href=url; a.download='improved_resume.pdf';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+    btnText.textContent='✓ Downloaded!';
+    setTimeout(()=>{ btnText.textContent='Generate & Download Improved Resume PDF'; btn.disabled=false; },3000);
+  } catch(ex) {
+    alert('Could not generate resume.'); btnText.textContent='Generate & Download Improved Resume PDF'; btn.disabled=false;
+  }
+}
 
+async function generateCoverLetter() {
+  const name    = document.getElementById('clName').value.trim();
+  const role    = document.getElementById('clRole').value.trim();
+  const company = document.getElementById('clCompany').value.trim();
+  const errEl   = document.getElementById('clError');
+  errEl.classList.remove('visible');
+
+  if (!name||!role||!company) {
+    errEl.textContent='Name, job role and company name are required.';
+    errEl.classList.add('visible'); return;
+  }
+
+  const btn=document.getElementById('clBtn');
+  btn.textContent='Generating PDF...'; btn.disabled=true;
+
+  try {
+    const res = await fetch('/generate-cover-letter',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        name:         name,
+        title:        document.getElementById('clTitle').value.trim() || 'Software Engineer',
+        email:        document.getElementById('clEmail').value.trim(),
+        phone:        document.getElementById('clPhone').value.trim(),
+        linkedin_url: document.getElementById('clLinkedin').value.trim(),
+        location:     document.getElementById('clLocation').value.trim(),
+        job_role:     role,
+        company:      company,
+        street:       document.getElementById('clStreet').value.trim(),
+        city:         document.getElementById('clCity').value.trim(),
+        state:        document.getElementById('clState').value.trim(),
+        zip:          document.getElementById('clZip').value.trim(),
+        background:   document.getElementById('clBackground').value.trim() || lastResumeText.slice(0,800)
+      })
+    });
+    if (!res.ok) { const err=await res.json(); errEl.textContent=err.error||'Failed.'; errEl.classList.add('visible'); return; }
+    const blob=await res.blob();
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='cover_letter.pdf';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
     btn.textContent='✓ Downloaded!';
-    setTimeout(()=>{ btn.textContent='Generate & Download Cover Letter ✦'; btn.disabled=false; },3000);
-  } catch(e) {
+    setTimeout(()=>{ btn.textContent='Generate & Download Cover Letter PDF ✦'; btn.disabled=false; },3000);
+  } catch(ex) {
     errEl.textContent='Could not connect to server.'; errEl.classList.add('visible');
-    btn.textContent='Generate & Download Cover Letter ✦'; btn.disabled=false;
+    btn.textContent='Generate & Download Cover Letter PDF ✦'; btn.disabled=false;
   }
 }
 </script>
